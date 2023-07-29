@@ -18,28 +18,18 @@ Node* addToList(Node* head, const char* line) {
         exit(EXIT_FAILURE);
     }
     strcpy(newNode->line, line);
-    newNode->next = NULL;
+    newNode->next = head; // Add new node at the beginning of the list
 
-    if (head == NULL) {
-        return newNode;
-    }
-
-    Node* current = head;
-    while (current->next != NULL) {
-        current = current->next;
-    }
-    current->next = newNode;
-
-    return head;
+    return newNode; // Return the new head of the list
 }
 
-// Function to print the contents of the linked list
-void printList(Node* head) {
-    Node* current = head;
-    while (current != NULL) {
-        printf("%s", current->line);
-        current = current->next;
+// Function to print the contents of the linked list in reverse order
+void printListReverse(Node* head) {
+    if (head == NULL) {
+        return;
     }
+    printListReverse(head->next); // Recursively print the rest of the list
+    printf("%s", head->line); // Print the current node's line
 }
 
 // Function to free the memory allocated for the linked list
@@ -91,7 +81,7 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    printList(head);
+    printListReverse(head);
 
     freeList(head);
 
